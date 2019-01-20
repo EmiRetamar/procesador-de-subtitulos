@@ -1,0 +1,23 @@
+WebVTT
+
+NOTE
+Comentarios, Comentarios, Comentarios, Comentarios
+Comentarios, Comentarios, Comentarios, Comentarios
+
+1
+00:22:15.000 --> 00:24:20.000
+<b><hola>Esta es <:3>la</:3> linea 1 del subtitulo 1.</hola></b>
+<i>Esta es la <probando>linea</probando> 2 del subtitulo 2.</i>/>
+
+NOTE Comentarios, Comentarios, Comentarios, Comentarios
+
+2
+00:30:20.000 --> 00:30:25.000
+<hola>Esta es <lala>la</lala> linea 1 del subtitulo 2.</hola>
+/<body>Esta es la linea 2 del subtitulo 2.</body>
+
+NOTE This last line may not translate well.
+
+3
+00:31:15.000 --> 00:31:20.000
+<b>Esta es la linea 1 del subtitulo 3.</b>

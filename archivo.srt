@@ -1,0 +1,38 @@
+1
+00:00:55,234 --> 00:00:56,984
+yyyyyyyyyy
+xxxxxxxxx
+rrrrrrrrr
+safksajgkljsalkgjal
+sadklasjdka
+asssssss
+mmmmmmmm
+nnnnnnnnnnn
+
+2
+00:00:57,384 --> 00:00:58,500
+Hola como andas todo bien que contas como te va
+soy de Argentina como andas
+facultad de informatica unlp
+licenciatura en informatica lalalala
+lenguaje c
+soy de guernica
+me llamo emiliano
+
+3
+00:00:58,384 --> 00:00:58,575
+aaaaaaaaaaaaaaaaaaa
+bbbbbbbbb
+cccccccccccccccccccccc
+dddddddddddd
+eeeeeeeeeeeeee
+ffffffffffffff
+ggggggggggg
+
+4
+00:00:59,600 --> 00:01:00,576
+dadadadada
+dadadadad
+dadadadadadad
+dadadada
+

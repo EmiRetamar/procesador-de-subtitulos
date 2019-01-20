@@ -1,0 +1,156 @@
+Seminario de Lenguajes C - 2013
+Trabajo Final de la Materia
+
+
+WebVTT es un formato de archivos de subtitulos para un recurso de video en la Web. 
+Está basado en subRIP y tiene el siguiente formato:
+
+
+WEBVTT
+<espacio en blanco>					
+[Indicador o etiqueta] Opcional 	
+[hh:]mm:ss.sss --> [hh:]mm:ss.sss	
+Texto del subtítulo				
+
+
+A modo de ejemplo sencillo:
+
+
+WEBVTT
+
+00:11.000 --> 00:13.000
+<b>Estamos en La Plata<b>
+
+00:13.000 --> 00:16.000
+<i>En la plaza San Martín</i>
+
+WebVTT permite muchas más configuraciones que se pueden consultar en los links de referencia.
+.
+El objetivo del trabajo final es procesar el texto de subtítulos de un archivo 
+en formato WebVTT descartando en la visualización del subtítulo los caracteres de formato, 
+encerrados entre < y >
+
+Sobre el trabajo final de la cursada, incluir el procesamiento de un nuevo flag, 
+-Ω que permita procesar los archivos en formato WebVTT. La salida deberá ser almacenada 
+en formato SubRIP. En caso de encontrar tags sin su correspondiente cierre deberá informarlo 
+con un mensaje apropiado.
+
+
+Consideraciones:
+
+No se contabilizan como carácteres los < y > ni el texto encerrado entre ellos
+Hay que verificar que todos los tags que abren cierren y que cada "<" cierre con un ">", 
+por ejemplo:
+Es válido y tiene 4 carácteres: <b>Hola</b>
+No son válidos:
+"<bHola</b>"
+"<b>Hola<b>"
+"<b>Hola"
+"</b>Hola"
+"<"
+Para verificar un subtitulo WebVTT:
+
+./tfinal -f archivo.vtt -Ω -v
+
+Para insertar un nuevo elemento:
+
+./tfinal -f archivo.vtt -Ω -i 5000 6000 "Hola mundo" -o salida.srt
+
+Para desplazar el subtitulo 500 milisegundos y luego verificarlo:
+
+./tfinal -f archivo.vtt -Ω -d 500 -v -o salida.srt
+
+Si no se indica el parámetro -Ω, el programa interpreta el archivo de entrada 
+con el formato SubRIP tal como se hacía originalmente en el TPI.
+
+En el archivo de salida tendrían que descartar los <...>.
+
+Fecha de Entrega: 1 de noviembre de 2013
+
+
+Referencias
+http://dev.w3.org/html5/webvtt/#dfn-webvtt-cue-italics-span
+http://msdn.microsoft.com/es-es/library/dn175736.aspx
+https://developer.mozilla.org/en-US/docs/HTML/WebVTT
+
+Consideraciones:
+
+Memoria
+Documentación
+Modularización
+
+* Formato de salida en formato anterior
+* El omega en cualquier orden
+* El omega es que indica que hay foramto Wt
+* A medida que se chequea se descarta, en la estructura no guardo nada nuevo.
+* La hora siempre viene  
+* Cuando los tags estan mal si no tienen apertura(<.>) y/o cierre(</.>), es decir, 
+tienen el primer caracter entre los tags , que es el que vale. Por ejemplo, 
+podemos tener <b><i>Prueba</i></b> que es correcto, y <b><i>Prueba</b> no es correcto </i>
+La gestion del anidamiento no es obligatorio, sí que este bien formado.
+* El tag de cierre es </xxx>
+* Si no viene la etiqueta o indice hay un salto de línea que separa el prox. subtítulo.
+* Los tags se pueden anidar
+* Si el subtítulo tiene error se guarda el tiempo y el indice,
+y en el texto ponemos "Error de formato" y/o lo q se necesite para que no de error.
+
+
+Consideraciones de Fernando Lopez:
+
+Hay un error en el enunciado, hay que agregar un nuevo parámetro, vamos a llamarle -Ω (omega) hasta que se corrija el enunciado y pongan el nombre definitivo.
+
+El -v sigue existiendo con el mismo comportamiento de antes al que se le suma que si el archivo es WebVTT (cosa que se indica con el nuevo parámetro):
+
+No se contabilizan como carácteres los < y > ni el texto encerrado entre ellos
+Hay que verificar que todos los tags que abren cierren y que cada < cierre con un >, por ejemplo:
+Es válido y tiene 4 carácteres: <b>Hola</b>
+No son válidos:
+"<bHola</b>"
+"<b>Hola<b>"
+"<b>Hola"
+"</b>Hola"
+"<"
+Para verificar un subtitulo WebVTT:
+
+./tfinal -f archivo.vtt -Ω -v
+
+Para insertar un nuevo elemento:
+
+./tfinal -f archivo.vtt -Ω -i 5000 6000 "Hola mundo" -o salida.srt
+
+Para desplazar el subtitulo 500 milisegundos y luego verificarlo:
+
+./tfinal -f archivo.vtt -Ω -d 500 -v -o salida.srt
+
+Si no se indica el parámetro -Ω, el programa interpreta el archivo de entrada con el formato SubRIP tal como se hacía originalmente en el TPI.
+
+En el archivo de salida tendrían que descartar los <...>.
+
+Saludos
+
+YA PROCESE LO DEL CARACTER NUEVO PARA QUE TOME AL ARCHIVO COMO WEBVTT EN VEZ DE SUBRIP
+
+el caracter "espacio en blanco" del principio no lo voy a tener en cuenta cuando lea,
+en caso de que tenga que hacer alguna modificacion para que se vuelque una salida en
+subRip ahi si despues de quitar las etiquetas de html en el texto voy a agregar una 
+linea en blanco al final.
+
+MI IDEA ES LIMPIAR TODAS LAS ETIQUETAS ANTES DE ENTRAR AL VALIDAR SUB, ENTONCES
+PROCESA NORMAL COMO SI FUERA SUBRIP.
+
+LOS INDICES LOS TENGO QUE ASIGNAR ANTEEEEEEEES DE PROCESAR LOS SUBTITULOS
+LOS PODRIA ASIGNAR CON UNA FUNCION LUEGO DE VOLCAR TODA LA INFORMACION DEL ARCHIVO
+A LA ESTRUCTURA
+
+YA HICE LA FUNCION QUE VERIFICA SI ME VIENE EL TIEMPO :)
+
+Ahora para procesar los textos del subtitulo podria hacer una funcion 
+que verifique primero si el subtitulo no tiene errores, si tiene errores devuelva
+false y todo el texto se cambiaria por "Error de formato" sino devuelve true. Adentro de la funcion
+se deberia ir apilando las etiquetas (seria una pila de strings, arreglo de punteros a char)
+entonces luego cuando vaya encontrando las etiquetas de cierre deberia ir verificando 
+con las etiquetas que apile y si coinciden exactamente con el texto que contienen son validas
+sino deberia devolver false tambien. Antes de salir del modulo deberia hacer un free de todo
+lo que haya alocado. El modulo este procesa de a una linea, afuera deberia haber un for
+que vaya aumentado el arreglo de punteros del texto del subtitulo actual hasta que llegue al
+NULL que marca fin de subtitulo.

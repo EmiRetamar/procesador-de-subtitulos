@@ -1,0 +1,96 @@
+Seminario de Lenguajes C - 2013
+Trabajo Final de la Materia
+
+
+WebVTT es un formato de archivos de subtitulos para un recurso de video en la Web. 
+Está basado en subRIP y tiene el siguiente formato:
+
+
+WEBVTT
+<espacio en blanco>					
+[Indicador o etiqueta] Opcional 	
+[hh:]mm:ss.sss --> [hh:]mm:ss.sss	
+Texto del subtítulo				
+
+
+A modo de ejemplo sencillo:
+
+
+WEBVTT
+
+00:11.000 --> 00:13.000
+<b>Estamos en La Plata<b>
+
+00:13.000 --> 00:16.000
+<i>En la plaza San Martín</i>
+
+WebVTT permite muchas más configuraciones que se pueden consultar en los links de referencia.
+
+El objetivo del trabajo final es procesar el texto de subtítulos de un archivo 
+en formato WebVTT descartando en la visualización del subtítulo los caracteres de formato, 
+encerrados entre < y >
+
+Sobre el trabajo final de la cursada, incluir el procesamiento de un nuevo flag, 
+-Ω que permita procesar los archivos en formato WebVTT. La salida deberá ser almacenada 
+en formato SubRIP. En caso de encontrar tags sin su correspondiente cierre deberá informarlo 
+con un mensaje apropiado.
+
+
+Consideraciones:
+
+Memoria
+Documentación
+Modularización
+
+* Formato de salida en formato anterior
+* El omega en cualquier orden
+* El omega es que indica que hay foramto Wt
+* A medida que se chequea se descarta, en la estructura no guardo nada nuevo.
+* La hora siempre viene  
+* Cuando los tags estan mal si no tienen apertura(<.>) y/o cierre(</.>), es decir, 
+tienen el primer caracter entre los tags , que es el que vale. Por ejemplo, 
+podemos tener <b><i>Prueba</i></b> que es correcto, y <b><i>Prueba</b> no es correcto </i>
+La gestion del anidamiento no es obligatorio, sí que este bien formado.
+* El tag de cierre es </xxx>
+* Si no viene la etiqueta o indice hay un salto de línea que separa el prox. subtítulo.
+* Los tags se pueden anidar
+* Si el subtítulo tiene error se guarda el tiempo y el indice,
+y en el texto ponemos "Error de formato" y/o lo q se necesite para que no de error.
+
+No se contabilizan como carácteres los < y > ni el texto encerrado entre ellos
+Hay que verificar que todos los tags que abren cierren y que cada "<" cierre con un ">", 
+por ejemplo:
+
+Es válido y tiene 4 carácteres: <b>Hola</b>
+No son válidos:
+"<bHola</b>"
+"<b>Hola<b>"
+"<b>Hola"
+"</b>Hola"
+"<"
+
+Para verificar un subtitulo WebVTT:
+
+./tfinal -f archivo.vtt -Ω -v
+
+Para insertar un nuevo elemento:
+
+./tfinal -f archivo.vtt -Ω -i 5000 6000 "Hola mundo" -o salida.srt
+
+Para desplazar el subtitulo 500 milisegundos y luego verificarlo:
+
+./tfinal -f archivo.vtt -Ω -d 500 -v -o salida.srt
+
+Si no se indica el parámetro -Ω, el programa interpreta el archivo de entrada 
+con el formato SubRIP tal como se hacía originalmente en el TPI.
+
+En el archivo de salida tendrían que descartar los <...>.
+
+Fecha de Entrega: 1 de noviembre de 2013
+
+
+Referencias
+http://dev.w3.org/html5/webvtt/#dfn-webvtt-cue-italics-span
+http://msdn.microsoft.com/es-es/library/dn175736.aspx
+https://developer.mozilla.org/en-US/docs/HTML/WebVTT
+
